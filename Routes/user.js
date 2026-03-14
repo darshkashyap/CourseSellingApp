@@ -72,5 +72,23 @@ const userId = req.userId;
 const purchases = await purchaseModel.find({userId: userId});
 res.status(200).json({message: "Purchases retrieved successfully", purchases: purchases});
 });
+//4.CHANGE PASSWORD
+userRouter.post("/change-password", userMiddleware, async function(req, res) {
+    const userId = req.userId;
+    const { oldPassword, newPassword } = req.body;
+    const user = await userModel.findById(userId);
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+        return res.status(401).json({ message: "Invalid old password" });
+    }
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+    res.status(200).json({ message: "Password changed successfully" });
+});
+
 //EXPORTS
 module.exports = {userRouter: userRouter};      
