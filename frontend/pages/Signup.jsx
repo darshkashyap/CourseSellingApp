@@ -5,18 +5,19 @@ import { useNavigate } from 'react-router-dom';
 export default function Signup() {
     const navigate = useNavigate();
     const [form, setForm] =useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         password: ''
     });
 const handlesubmit = async (e) => {
     e.preventDefault();
-    if(!form.name && !form.email && !form.password){
+    if(!form.firstName && !form.lastName && !form.email && !form.password){
         alert('Please fill all the fields');
         return;
     }
     try {
-        const res= await axios.post('http://localhost:3000/signup', form);
+        const res= await axios.post('http://localhost:3000/user/signup', form);
         navigate('/signin');
     } catch (err) {
         console.error('Error signing up:', err);
@@ -28,13 +29,22 @@ return (
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <form onSubmit={handlesubmit}>
             <div className="mb-4">
-                <label className="block text-gray-700">Name</label>
+                <label className="block text-gray-700">First Name</label>
                 <input
                     type="text"
                     className="w-full px-3 py-2 border rounded"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    value={form.firstname}
+                    onChange={(e) => setForm({ ...form, firstName: e.target.value })}
                 />  
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700">Last Name</label>
+                <input
+                    type="text"
+                    className="w-full px-3 py-2 border rounded"
+                    value={form.lastname}
+                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                />
             </div>
             <div className="mb-4">
                 <label className="block text-gray-700">Email</label>

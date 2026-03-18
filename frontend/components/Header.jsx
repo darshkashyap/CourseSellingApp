@@ -15,12 +15,17 @@ export default function Header() {
             <nav className="flex gap-6 text-lg font-medium">
                 <Link to="/courses" className="hover:text-gray-400">Courses</Link>
                 {token ? (
-                    <button onClick={handleLogout} className="hover:text-gray-400">Logout</button>
+                    <><button onClick={handleLogout} className="hover:text-gray-400">Logout</button>
+                      <Link to="/profile" className="hover:text-gray-400">Profile</Link>
+                      </>
+                    
                 ) : (
                     <>
                         <Link to="/signin" className="hover:text-gray-400">Sign In</Link>
                         <Link to="/signup" className="hover:text-gray-400">Sign Up</Link>
+                            
                     </>
+                    
                 )}
             </nav>
         </header>

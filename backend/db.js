@@ -3,7 +3,7 @@ const Schema= mongoose.Schema;
 const ObjectID= mongoose.Types.ObjectId;
 
 console.log("Connected to MongoDB");
-const { email } = require("zod");
+
 const userSchema= Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},

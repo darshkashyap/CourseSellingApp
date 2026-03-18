@@ -10,8 +10,10 @@ export default function Signin() {
     const handlesubmit = async (e) => {
         e.preventDefault();
         try {
-            const res= await axios.post('http://localhost:3000/signin', form);
+            const res= await axios.post('http://localhost:3000/user/signin', form);
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('firstName', res.data.firstName);
+        
             navigate('/courses');
         } catch (err) {
             console.error('Error signing in:', err);

@@ -57,7 +57,7 @@ userRouter.post("/signin", async function(req, res) {
         const isMatch = await bcrypt.compare(password, user.password);//Comparing the provided password with the hashed password stored in the database for authentication
         if(isMatch) {
             const token = jwt.sign({id:user._id}, JWT_USER_PASSWORD, { expiresIn: "1h" });
-            res.json({message: "User signed in successfully", token: token});
+            res.json({message: "User signed in successfully", token: token,firstName: user.firstName, lastName: user.lastName, email: user.email});
         } else {
             res.status(401).json({message: "Invalid email or password"});
         }

@@ -5,7 +5,11 @@ app.use(express.json());
 const mongoose = require("mongoose");
 const { adminRouter } = require("./Routes/admin.js");
 const { courseRouter } = require("./Routes/course.js");
-const { userRouter } = require("./Routes/user.js");
+const { userRouter } = require("./Routes/user.js")
+const cors = require("cors");
+app.use(cors({
+    origin: "http://localhost:5173"
+}));
 
 app.use("/course", courseRouter);
 app.use("/user", userRouter);

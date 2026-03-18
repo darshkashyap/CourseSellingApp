@@ -6,6 +6,10 @@ import Footer from '../components/Footer';
 import Signup from '../pages/Signup';
 import Signin from '../pages/Signin';
 import Home from '../pages/HomePage';
+import Profile from '../pages/Profile';
+import ChangeName from '../pages/Change-Name';
+import ChangePassword from '../pages/passwordchange';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
@@ -18,7 +22,9 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/signin" element={<Signin/>} />
           <Route path="/signup" element={<Signup />} />
-        
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/change-name" element={<ChangeName />} />
+          <Route path="/change-password" element={<ChangePassword />} />
          
         </Routes>
       </main>
