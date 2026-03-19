@@ -125,7 +125,7 @@ adminRouter.post("/course", adminMiddleware, async (req, res) => {
 });
 
 
-// 4. GET ALL COURSES
+// 4. GET ALL COURSES CREATED BY ADMIN
 adminRouter.get("/course/bulk", adminMiddleware, async (req, res) => {
     try {
         const adminId = req.adminId;
@@ -147,7 +147,7 @@ adminRouter.get("/course/bulk", adminMiddleware, async (req, res) => {
 
 
 // 5. UPDATE COURSE
-adminRouter.put("/course", adminMiddleware, async (req, res) => {
+adminRouter.put("/update-course", adminMiddleware, async (req, res) => {
     try {
         const adminId = req.adminId;
         const { courseId, title, description, price, imageLink, published } = req.body;
