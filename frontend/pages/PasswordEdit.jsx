@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function ChangePassword() {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!oldPassword || !newPassword) {
@@ -17,18 +20,37 @@ export default function ChangePassword() {
             return alert("New password must be at least 6 characters");
         }
 
-       
-        console.log("Old Password:", oldPassword);
-        console.log("New Password:", newPassword);
+        try {
+            setLoading(true);
 
-        alert("Password updated successfully (backend pending)");
+            const token = localStorage.getItem("token");
 
-       
-        setOldPassword('');
-        setNewPassword('');
+            const res = await axios.post(
+                "http://localhost:3000/user/change-password",
+                {
+                    oldPassword,
+                    newPassword
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 
-      
-        navigate('/profile');
+            alert(res.data.message);
+
+            setOldPassword('');
+            setNewPassword('');
+
+            navigate('/profile');
+
+        } catch (err) {
+            console.error(err);
+            alert(err.response?.data?.message || "Something went wrong");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -63,9 +85,10 @@ export default function ChangePassword() {
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded"
+                    disabled={loading}
+                    className="w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded disabled:opacity-50"
                 >
-                    Change Password
+                    {loading ? "Updating..." : "Change Password"}
                 </button>
             </form>
         </div>

@@ -8,7 +8,8 @@ import Signin from '../pages/Signin';
 import Home from '../pages/HomePage';
 import Profile from '../pages/Profile';
 import ChangeName from '../pages/Change-Name';
-import ChangePassword from '../pages/passwordchange';
+import ChangePassword from '../pages/PasswordEdit';
+import Courses from '../pages/Courses';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/change-name" element={<ChangeName />} />
           <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/courses" element={<Courses />} />
          
         </Routes>
       </main>
