@@ -134,37 +134,6 @@ userRouter.get("/purchases", userMiddleware, async (req, res) => {
 });
 
 
-// 4. CHANGE PASSWORD
-userRouter.post("/change-password", userMiddleware, async (req, res) => {
-    try {
-        const userId = req.userId;
-        const { oldPassword, newPassword } = req.body;
-
-        const user = await userModel.findById(userId);
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        const isMatch = await bcrypt.compare(oldPassword, user.password);
-
-        if (!isMatch) {
-            return res.status(401).json({ message: "Invalid old password" });
-        }
-
-        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-
-        user.password = hashedNewPassword;
-        await user.save();
-
-        res.status(200).json({ message: "Password changed successfully" });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Server error" });
-    }
-});
-
 
 // EXPORT
 module.exports = { userRouter };

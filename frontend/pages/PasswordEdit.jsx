@@ -25,8 +25,8 @@ export default function ChangePassword() {
 
             const token = localStorage.getItem("token");
 
-            const res = await axios.post(
-                "http://localhost:3000/user/change-password",
+            const res = await axios.put(  
+                "http://localhost:3000/auth/change-password",
                 {
                     oldPassword,
                     newPassword
@@ -39,11 +39,12 @@ export default function ChangePassword() {
             );
 
             alert(res.data.message);
-
             setOldPassword('');
             setNewPassword('');
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
 
-            navigate('/profile');
+            navigate('/signin');
 
         } catch (err) {
             console.error(err);
@@ -55,7 +56,7 @@ export default function ChangePassword() {
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
-            
+
             <button
                 type="button"
                 onClick={() => navigate('/profile')}

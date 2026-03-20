@@ -174,39 +174,8 @@ adminRouter.put("/update-course", adminMiddleware, async (req, res) => {
 });
 
 
-// 6. CHANGE PASSWORD
-adminRouter.post("/change-password", adminMiddleware, async (req, res) => {
-    try {
-        const adminId = req.adminId;
-        const { oldPassword, newPassword } = req.body;
 
-        const admin = await adminModel.findById(adminId);
-
-        if (!admin) {
-            return res.status(404).json({ message: "Admin not found" });
-        }
-
-        const isMatch = await bcrypt.compare(oldPassword, admin.password);
-
-        if (!isMatch) {
-            return res.status(401).json({ message: "Invalid old password" });
-        }
-
-        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-
-        admin.password = hashedNewPassword;
-        await admin.save();
-
-        res.status(200).json({ message: "Password changed successfully" });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Server error" });
-    }
-});
-
-
-// 7. GET ALL USERS
+// 6. GET ALL USERS
 adminRouter.get("/users", adminMiddleware, async (req, res) => {
     try {
         const users = await userModel.find({});
@@ -223,7 +192,7 @@ adminRouter.get("/users", adminMiddleware, async (req, res) => {
 });
 
 
-// 8. DELETE COURSE
+// 7. DELETE COURSE
 adminRouter.delete("/course", adminMiddleware, async (req, res) => {
     try {
         const adminId = req.adminId;
