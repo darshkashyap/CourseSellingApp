@@ -11,11 +11,8 @@ export default function MyCourses() {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setCourses(res.data.courses);
-        } catch (error) {
-            console.error("Error fetching my courses:", error);
-        }
+        } catch (error) { console.error("Error fetching my courses:", error); }
     };
-
     useEffect(() => {
         fetchMyCourses();
     }, []);
