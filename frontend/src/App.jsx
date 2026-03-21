@@ -13,6 +13,7 @@ import Courses from '../pages/Courses';
 import AllUsers from '../pages/admins/AllUsers';
 import CreateCourse from '../pages/admins/CreateCourse';
 import MyCourses from '../pages/MyCourses';
+import PurchaseCourse from '../pages/PurchaseCourse';
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -34,7 +35,8 @@ function App() {
           <Route path="/admin/users" element={<AllUsers />} />
           <Route path="/admin/create-course" element={<CreateCourse />} />
           <Route path="/user/purchases" element={<MyCourses />} />
-         
+          <Route path="/course/purchase/:courseId" element={<PurchaseCourse />} />
+         <Route path="*" element={<h2 className="text-2xl font-bold">404 - Page Not Found</h2>} />
         </Routes>
       </main>
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function Courses() {
+    const navigate = useNavigate();
     const [courses, setCourses] = useState([]);
-
     const fetchCourses = async () => {
         try {
             const res = await axios.get("http://localhost:3000/course/preview");
@@ -13,15 +13,12 @@ export default function Courses() {
             alert("Error fetching courses. Please try again.");
         }
     };
-
     useEffect(() => {
         fetchCourses();
     }, []);
-
     return (
         <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded shadow">
             <h2 className="text-2xl font-bold mb-4">Available Courses</h2>
-
             {courses.length === 0 ? (
                 <p>No courses available at the moment.</p>
             ) : (
@@ -40,6 +37,9 @@ export default function Courses() {
                             <p className="mt-4 text-sm text-gray-500 italic">
                                 Author: {course.author}
                             </p>
+                            <button onClick={() => navigate(`/course/purchase/${course._id}`)} className="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded">
+                                Purchase Course
+                            </button>
                         </div>
                     ))}
                 </div>
