@@ -16,10 +16,8 @@ export default function Header() {
 
     return (
         <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
-            <h1 className="text-2xl font-bold">Coursera</h1>
-
+            <Link to="/" className="text-2xl font-bold">  EduPlatform</Link>
             <nav className="flex gap-6 text-lg font-medium items-center">
-
                 <Link to="/course/preview" className="hover:text-gray-400">
                     Courses
                 </Link>
